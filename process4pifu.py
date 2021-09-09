@@ -87,6 +87,7 @@ def run(input_path):
     image_path = [
         os.path.join(input_path, f)
         for f in os.listdir(input_path)
+        if any(f.endswith(extension) for extension in ['png', 'jpg'])
     ]
     net = PoseEstimationWithMobileNet()
     checkpoint = torch.load('checkpoint_iter_370000.pth', map_location='cpu')
