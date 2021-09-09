@@ -3,18 +3,17 @@ import cv2
 import json
 import math
 import numpy as np
-from pycocotools.coco import COCO
-from pycocotools.cocoeval import COCOeval
 
 import torch
 
-from datasets.coco import CocoValDataset
 from models.with_mobilenet import PoseEstimationWithMobileNet
 from modules.keypoints import extract_keypoints, group_keypoints
 from modules.load_state import load_state
 
 
 def run_coco_eval(gt_file_path, dt_file_path):
+    from pycocotools.coco import COCO
+    from pycocotools.cocoeval import COCOeval
     annotation_type = 'keypoints'
     print('Running test for {} results.'.format(annotation_type))
 
@@ -111,6 +110,7 @@ def infer(net, img, scales, base_height, stride, pad_value=(0, 0, 0), img_mean=(
 
 
 def evaluate(labels, output_name, images_folder, net, multiscale=False, visualize=False):
+    from datasets.coco import CocoValDataset
     net = net.cuda().eval()
     base_height = 368
     scales = [1]
